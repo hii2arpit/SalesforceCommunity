@@ -1,6 +1,0 @@
-<apex:page controller="Box_Authorize">
-    <apex:form >
-    	<apex:commandButton value="AccessToken" action="{!readRequestTokenFromURL}"/>
-        {!result}
-    </apex:form>
-</apex:page>

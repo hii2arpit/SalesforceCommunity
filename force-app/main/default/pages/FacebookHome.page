@@ -1,7 +1,0 @@
-<apex:page controller="Facebook_Client_OAuth">
-    <apex:form >
-        <apex:commandButton value="Access Token" action="{!getToken}" />
-            {!result}
-    
-    </apex:form>
-</apex:page>

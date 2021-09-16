@@ -1,3 +1,0 @@
-<apex:page standardController="Position__c" >
-<apex:relatedList list="Job_Applications__r"/>
- </apex:page>

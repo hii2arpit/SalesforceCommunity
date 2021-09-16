@@ -1,5 +1,0 @@
-<apex:page standardController="Account">
-  <apex:form >
-  <apex:inputfield value="{!Account.Test__c}"/>
-  </apex:form>
-</apex:page>

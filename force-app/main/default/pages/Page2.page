@@ -1,9 +1,0 @@
-<apex:page standardController="Employment_Website__c">
-<apex:form >
-    <apex:pageBlock title="Hello{!$User.FirstName}">
-    
-    You are viewing the {!Employment_Website__c.name} Employment Website.<p/>
-    New Account Name<p/>   
-    </apex:pageBlock>
-</apex:form>
-</apex:page>

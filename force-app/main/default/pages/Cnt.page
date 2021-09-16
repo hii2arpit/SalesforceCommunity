@@ -1,5 +1,0 @@
-<apex:page controller="testing1">
-<apex:outputText value="{!i}"></apex:outputText>
-
-  
-</apex:page>

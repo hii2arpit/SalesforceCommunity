@@ -1,3 +1,0 @@
-<apex:page >
-  <c:Exp1 record="Account" />
-</apex:page>

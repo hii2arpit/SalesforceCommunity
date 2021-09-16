@@ -1,9 +1,0 @@
-<apex:page standardController="Account">
-<apex:pageblock rendered="{!$objectType.Account.accessible}">
-<p> You can access this page.</p>
-</apex:pageblock>
-
-<apex:pageblock rendered="{!Not($ObjectType.Account.accessible)}">
-<p> You can't access this page.</p>
-</apex:pageblock>
-</apex:page>

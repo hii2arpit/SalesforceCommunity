@@ -1,7 +1,0 @@
-<apex:page controller="XMLFileConvert">
-    <apex:form >
-        <apex:inputFile fileName="abc" value="{!body}" />
-        <apex:commandButton value="Convert" action="{!convert}"/>
-        <apex:inputTextarea rows="10" cols="20" value="{!result}"/>
-    </apex:form>
-</apex:page>

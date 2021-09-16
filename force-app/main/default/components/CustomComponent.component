@@ -1,8 +1,0 @@
-<apex:component controller="VfPageOrderExample">
-<apex:attribute name="value" type="string" description="Sample Component." assignTo="{!selectedValue}"/>
-<p>
-value={!value}<br/>
-selectedValue={!selectedValue}<br/>
-EditMode={!EditMode}
-</p>
-</apex:component>

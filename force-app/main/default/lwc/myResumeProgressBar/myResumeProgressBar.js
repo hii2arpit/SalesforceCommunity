@@ -6,4 +6,4 @@ export default class MyResumeProgressBar extends LightningElement {
     get getStyle(){
         return `width:${this.progressValue}%`
     }
-}
+} 

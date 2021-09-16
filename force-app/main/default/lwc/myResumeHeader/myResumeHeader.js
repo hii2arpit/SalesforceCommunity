@@ -3,7 +3,7 @@ import { LightningElement,api } from 'lwc';
 export default class MyResumeHeader extends LightningElement {
     @api socialDetails;
     @api userDetails;
-    @api profileImage;
+    @api profileImage; 
 
     get phoneLink()
     {

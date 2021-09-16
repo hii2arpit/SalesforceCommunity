@@ -8,7 +8,7 @@
     background-color: #e9ecef;
     height: .6rem;
 }
-.progress-bar{
+.progress-bar{ 
     flex-direction: column;
     justify-content: center;
     color: #fff;

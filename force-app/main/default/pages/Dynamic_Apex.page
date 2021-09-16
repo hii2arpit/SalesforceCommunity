@@ -1,0 +1,41 @@
+<apex:page controller="objectController">
+<apex:form > 
+      <apex:pageBlock >
+          <apex:pageBlockSection columns="1" >
+
+                  <apex:outputlabel value="Object Names :"/> 
+                      <apex:actionRegion >      
+                           <apex:selectList value="{!selectedObject}" size="1">
+                                    <apex:selectOptions value="{!ObjectNames}"/>
+                                    <apex:actionSupport event="onchange" rerender="myFields"/>
+                            </apex:selectList>
+                     </apex:actionRegion>                         
+
+               <apex:panelGrid columns="5" id="abcd">
+                      <apex:outputlabel value="Field Names :"/>   
+                      <apex:outputPanel id="myFields">   
+                        <apex:actionRegion >  
+                           <apex:selectList value="{!leftselected}" size="5" multiselect="true" style="width:100px">
+                                <apex:selectOptions value="{!unSelectedValues}"/>
+                            </apex:selectList>
+                            <apex:panelGroup >
+                            <br/>
+                            <apex:image value="{!$Resource.multiselected}">
+                                <apex:actionSupport event="onclick" action="{!selectclick}" reRender="abcd"/>
+                            </apex:image>
+                            <br/><br/>
+                            <apex:image value="{!$Resource.multiunselected}">
+                                <apex:actionSupport event="onclick" action="{!unselectclick}" reRender="abcd"/>
+                            </apex:image>
+                </apex:panelGroup>
+                            <apex:selectList id="sel2" value="{!rightselected}" multiselect="true" style="width:100px" size="5">
+                               <apex:selectOptions value="{!SelectedValues}" />
+                            </apex:selectList>
+                        </apex:actionRegion>      
+                     </apex:outputPanel>
+                </apex:panelGrid>
+
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,17 @@
+<aura:component implements="lightning:isUrlAddressable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,flexipage:availableForRecordHome">
+    <lightning:navigation aura:id="navService2"/>    
+<!-- <aura:handler name="init" value="{!this}" action="{!c.doInIt}"/> -->
+	<lightning:card iconName="standard:event" title="WebinarOverride component">
+        <!-- <lightning:formattedText class="slds-p-left_small" value="This is the target page"/> -->
+        <lightning:select name="select1" label="How many tickets?" required="true">
+        <option value="">choose one...</option>
+        <option value="1">one</option>
+        <option value="2">two</option>
+        <option value="3">three</option>
+    </lightning:select>
+
+    <lightning:button label="Cancel" onclick="{!c.backToComponentNavigation}"/>
+    <lightning:button label="Start" onclick="{!c.handleClick}"/>
+    </lightning:card>
+    <!-- <lightning:card/> -->
+</aura:component>

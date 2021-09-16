@@ -1,0 +1,25 @@
+<aura:component implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,flexipage:availableForRecordHome,force:hasRecordId" >
+
+                <aura:attribute name="fields" type="String[]" default="['User_Records__c','Name','AnnualRevenue','Industry', 'Phone', 'Fax', 'Test__c']" />
+
+    <lightning:card iconName="action:new_account" title="Record_EDIT_AND_VIEW_FORM">
+        <div class="slds-p-horizontal_small">
+            <lightning:recordEditForm  recordId="{!v.recordId}" objectApiName="Account">
+                <div class="slds-box">
+                    <lightning:inputField fieldName="User_Records__c" />
+                    <lightning:outputField fieldName="Name" />
+                    <lightning:outputField fieldName="Phone" />
+                    <lightning:outputField fieldName="AnnualRevenue" />
+                    <lightning:outputField fieldName="Industry" />
+                    <lightning:outputField fieldName="Test__c" />
+                    <lightning:inputField fieldName="Test__c" />
+                    <lightning:inputField fieldName="SLAExpirationDate__c" />
+                    
+
+                </div>
+            </lightning:recordEditForm>
+
+            <lightning:recordForm aura:id="FormId" recordId="{!v.recordId}" objectApiName="Account" columns="3" fields="{!v.fields}" onsuccess="{!c.handleSuccess}" />
+        </div>
+    </lightning:card>
+</aura:component>

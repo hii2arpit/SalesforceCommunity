@@ -1,0 +1,34 @@
+<template>
+    <lightning-card title="Create and Display Record Using Record Edit and View Form" icon-name="standard:case">
+        <lightning-record-edit-form object-api-name="Case" onsuccess={saveRecord}>
+            <lightning-input-field field-name="Subject"></lightning-input-field>
+            <lightning-input-field field-name="AccountId"></lightning-input-field>
+            <lightning-input-field field-name="Description"></lightning-input-field>
+            <lightning-input-field field-name="Status"></lightning-input-field>
+            <lightning-input-field field-name="Priority"></lightning-input-field>
+            <lightning-button label="Create Case" type="submit" variant="brand"></lightning-button>
+        </lightning-record-edit-form>
+    </lightning-card>
+
+    <br />
+    <!-- <template if:true={saveRecordId}> -->
+    <lightning-card title="You will see the above created Case Details Below" icon-name="standard:case">
+        <lightning-record-view-form object-api-name="Case" record-id={saveRecordId}>
+            <lightning-output-field field-name="Subject"></lightning-output-field>
+            <lightning-output-field field-name="AccountId"></lightning-output-field>
+            <lightning-output-field field-name="Description"></lightning-output-field>
+            <lightning-output-field field-name="Status"></lightning-output-field>
+            <lightning-output-field field-name="Priority"></lightning-output-field>
+        </lightning-record-view-form>
+    </lightning-card>
+    <!-- </template> -->
+<br/>
+    <lightning-record-form
+        record-id={recordId}
+        object-api-name={objectApiName}
+        fields={fields}
+        columns="2"
+        mode="edit"
+        onsubmit={handleSubmit}>
+</lightning-record-form>
+</template>

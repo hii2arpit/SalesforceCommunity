@@ -1,0 +1,40 @@
+<apex:page controller="VfOrderExp2" extensions="VfOrderExp2Extension" action="{!resetEmp}">
+    <apex:message />
+    <apex:pageblock title="{!greeting}">
+        <apex:outputLabel value="{!$objectType.account.fields.Name.Label}:" for="acctName" />
+        <apex:outputField value="{!account.Name}" id="acctname"/>
+        <br/>
+        <apex:outputLabel value="{!$objectType.account.fields.NumberOfEmployees.Label}:" for="emps" />
+        <apex:outputField value="{!account.NumberOfEmployees}" id="emps"/>
+        <br/>
+    </apex:pageblock>
+    
+    <apex:pageblock title="Variable Values">
+    <c:CustomComponent value="{!$CurrentPage.Parameters.Key}" />
+    </apex:pageblock>
+    
+    <apex:form rendered="{!$CurrentPage.Parameters.Key='true'}">
+        <apex:pageblock title="Update the account" id="thePageBlock">
+            <apex:pageblockSection columns="1">
+            <apex:inputField id="aName" value="{!account.Name}"/>
+            <apex:inputField value="{!account.NumberOfEmployees}"/>
+            
+            <apex:pageblocksectionItem >
+                <apex:outputLabel value="{!$objectType.account.fields.Industry.label}" for="acctIndustry" />
+             <!--   <apex:actionRegion > -->
+                    <apex:inputField value="{!account.Industry}" id="acctIndustry">
+                        <apex:actionsupport event="onChange" rerender="thePageBlock" status="status"/>
+                  </apex:inputField>
+<!--                </apex:actionRegion> -->
+            </apex:pageblocksectionItem>
+            
+            </apex:pageblockSection>
+            
+            <apex:pageBlockButtons location="Bottom">
+            <apex:commandButton action="{!save}" value="Save"/>
+            <apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+            </apex:pageBlockButtons>
+            
+        </apex:pageblock>
+    </apex:form>
+</apex:page>

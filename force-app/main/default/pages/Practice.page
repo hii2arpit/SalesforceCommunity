@@ -1,0 +1,19 @@
+<apex:page >
+<apex:form >
+        <apex:pageBlock title="Help Link Edit">   
+        <apex:pageblockSection title="Information" columns="1">
+        <apex:inputfield label="Object Type"/>
+        <apex:inputField label="Record Type"/>
+        <apex:inputField label="Link Type"/>
+        <apex:inputField label="Page URL"/>
+        <apex:inputcheckbox label="Regex Match Page URL"/>
+        <apex:inputField label="Link Location"/>
+        <apex:inputField label="Parameter #1 "/>
+        </apex:pageblockSection>
+        <apex:pageblockButtons >
+        <apex:commandButton action="{!save}" value="save"/>
+        <apex:commandButton action="{!edit}" value="Edit"/>
+        </apex:pageblockButtons> 
+   </apex:pageBlock>
+</apex:form>
+</apex:page>

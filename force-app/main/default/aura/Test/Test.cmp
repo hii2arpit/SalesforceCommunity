@@ -1,0 +1,6 @@
+<aura:component >
+	
+    <c:helloMessage />
+
+    
+</aura:component>

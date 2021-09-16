@@ -1,0 +1,23 @@
+<apex:page standardController="Account">
+
+    <apex:pageblock >
+    <apex:form >
+    <apex:pageblockSection >
+        <apex:repeat value="{!$objectType.Account.Fieldsets.F1}" var="f">
+            <apex:inputField value="{!Account[f]}" />
+        </apex:repeat>
+        </apex:pageblockSection>
+    </apex:form>
+    </apex:pageblock>
+    
+    
+    
+    <!--
+    <apex:pageblock >
+        <apex:pageblocktable value="{!$objectType.Account.Fieldsets.F1}" var="f">
+        <apex:column value="{!f}"/>
+        <apex:column value="{!f.Label}" />
+      
+        </apex:pageblocktable>
+    </apex:pageblock> -->
+</apex:page>

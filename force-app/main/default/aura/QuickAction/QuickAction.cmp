@@ -1,0 +1,35 @@
+<aura:component implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,force:hasRecordId" access="global">
+
+    <aura:attribute name="account" type="Object" />
+    <aura:attribute name="accountFields" type="Object" />
+    <aura:attribute name="recordError1" type="String" />
+                        
+    <force:recordData aura:id="viewRecord" recordId="{!v.recordId}" targetError="{!v.recordError1}" layoutType="FULL"
+     targetRecord="{!v.account}" targetFields="{!v.accountFields}" />
+
+     <!-- Contact Fields -->
+     <aura:attribute name="contact" type="Object" />
+     <aura:attribute name="contactFields" type="Object" />
+     <aura:attribute name="recordError" type="String" />
+                         
+     <force:recordData aura:id="editContactRecord" layoutType="FULL" recordId="{!v.recordId}" targetError="{!v.recordError}"
+      targetRecord="{!v.contact}" targetFields="{!v.contactFields}" mode="EDIT"  />
+
+     <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+
+     <!-- Display a header with details about the account -->
+        <div class="slds-page-header" role="banner">
+            <p class="slds-text-heading_label">{!v.accountFields.Name}</p>
+            <h1 class="slds-page-header__title slds-m-right_small
+                slds-truncate slds-align-left">Create New Contact</h1>
+        </div>
+
+
+    <lightning:input aura:id="contactField" name="firstname" label="First Name" value="{!v.contactFields.FirstName}" />
+    <lightning:input aura:id="contactField" name="lastname" label="Last Name" value="{!v.contactFields.LastName}" />
+    <lightning:input aura:id="contactField" name="email" label="Email" value="{!v.contactFields.Email}" />
+
+    <lightning:button label="Save" onclick="{!c.doSave}" variant="brand" />
+    <lightning:button label="Cancel" onclick="{!c.doCancel}" variant="brand" />
+
+</aura:component>

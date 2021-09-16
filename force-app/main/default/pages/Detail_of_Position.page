@@ -1,0 +1,24 @@
+<apex:page standardController="Position__c" recordSetVar="Position">
+<apex:form >
+<apex:pageblock >
+<apex:pageblockButtons >
+<apex:commandButton value="save" action="{!save}"/>
+</apex:pageblockButtons>
+<apex:pageBlockTable value="{!Position}" var="p">
+<apex:column value="{!p.Name}"/>
+<apex:column value="{!p.Status__c}"/>
+<apex:column value="{!p.Type__c}"/>
+
+<apex:column headerValue="Job Level">
+<apex:inputField value="{!p.Job_Level__c}"/>
+</apex:column>
+
+<apex:column headerValue="Functional Area">
+<apex:inputField value="{!p.Functional_Area__c}"/>
+</apex:column>
+
+
+</apex:pageBlockTable>
+</apex:pageblock>
+</apex:form>
+</apex:page>

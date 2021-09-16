@@ -1,0 +1,25 @@
+<aura:component>
+    <div class="slds-m-left_x-large">
+        <lightning:button label="Accounts" title="Click on Account to view" variant="base" />
+        <lightning:button label="Contacts" variant="brand" iconName="action:call" iconPosition="right" />
+        <lightning:button  label="Opportunity" variant="destructive" />
+        <lightning:button label="Cases" variant="inverse" />
+        <lightning:button label="Milestones" variant="success" />
+    </div>
+    <br/><br/><br/>
+
+    <lightning:buttonGroup>
+        <lightning:button label="Accounts" />
+        <lightning:button label="Cases" />
+        <lightning:button label="Opportunities" />
+        <lightning:button label="Milestones" />
+    </lightning:buttonGroup>
+    <br/><br/><br/>
+    <lightning:button label="More" /><br/>
+    <lightning:buttonMenu label="More" iconName="action:call">
+        <lightning:menuItem label="Save" />
+        <lightning:menuItem label="Edit" />
+        <lightning:menuItem label="View" />
+        <lightning:menuItem label="Delete" />
+    </lightning:buttonMenu>
+</aura:component>

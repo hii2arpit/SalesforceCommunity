@@ -1,0 +1,25 @@
+<aura:component controller="AurasetCallback">
+    <aura:attribute name="lstAccounts" type="List" />
+    <aura:attribute name="lstContacts" type="List" />
+    <aura:attribute name="accountColumns" type="List" />
+    <aura:attribute name="contactColumns" type="List" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <lightning:layout multipleRows="true">
+        <lightning:layoutItem size="6">
+            <div style="width: 500px; margin-left:50px; margin-top:100px; border:2px solid blue;">
+                <lightning:card title="Accounts" iconName="standard:account">
+                    <lightning:datatable keyField="id" data="{!v.lstAccounts}" columns="{!v.accountColumns}" hideCheckboxColumn="false"/>
+                </lightning:card>
+            </div>
+        </lightning:layoutItem>
+
+        <lightning:layoutItem size="6">
+            <div style="width:500px;margin-left:100px;margin-top:100px;border:2px solid yellow;">
+                <lightning:card title="Contacts" iconName="standard:contact">
+                    <lightning:Datatable keyField="id" data="{!v.lstContacts}" columns="{!v.contactColumns}" hideCheckboxColumn="true"/>
+                </lightning:card>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

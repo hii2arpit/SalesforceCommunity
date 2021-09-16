@@ -1,0 +1,11 @@
+<apex:page controller="Http_Weather_API">
+    <apex:form >
+    	Enter City: <apex:inputText value="{!city}"/>
+        <apex:commandButton value="Weather Data" action="{!getWeather}" reRender="pb"/><br/><br/>
+        <apex:pageBlock id="pb">
+            {!JsonResult}
+        
+        </apex:pageBlock>
+        
+    </apex:form>
+</apex:page>

@@ -1,0 +1,20 @@
+<apex:page controller="WrapperControllerClone">
+<apex:form >
+    <apex:pageblock >
+        <apex:pageblockButtons >
+            <apex:commandButton value="Clone" action="{!clonerecord}"/>
+        </apex:pageblockButtons>
+        
+        <apex:pageblockTable value="{!Record}" var="r">
+        <apex:column >
+        <apex:inputCheckbox value="{!r.checkbox}"/>
+        </apex:column>
+        <apex:column value="{!r.act.Name}"/>
+        <apex:column value="{!r.opp.Name}"/>
+        <apex:column value="{!r.oppcontactrole.OpportunityId}"/>
+        <apex:column value="{!r.oppcontactrole.ContactId}"/>
+        <apex:column value="{!r.oppcontactrole.IsPrimary}"/>
+        </apex:pageblockTable>
+    </apex:pageblock>
+</apex:form>
+</apex:page>

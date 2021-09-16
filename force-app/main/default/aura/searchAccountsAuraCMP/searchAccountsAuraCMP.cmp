@@ -1,0 +1,22 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllpageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" 
+    controller="AurasetCallback" >
+
+
+<aura:attribute name="account" type="Account[]" />
+<aura:attribute name="columns" type="List" />
+<aura:attribute name="searchKey" type="String" />
+
+<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+<div class="slds-form-element">
+<div class="slds-form-element_control">
+<lightning:input type="text" value="{!v.searchKey}" class="slds-input" placeholder="Enter accounts to search" onchange="{!c.searchAccount}" />
+</div>
+</div>
+
+<!-- Lightning Datatable for showing records accoring to search -->
+    <div style="height: 300px">
+        <lightning:datatable keyField="tableid" data="{!v.account}" columns="{!v.columns}" hideCheckboxColumn="false" hideTableHeader="false" 
+                             onrowaction="{!c.rowAction}"/>
+    </div>
+</aura:component>

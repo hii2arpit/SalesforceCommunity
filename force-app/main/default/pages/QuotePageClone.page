@@ -1,0 +1,872 @@
+<apex:page controller="QuotePageClass" sidebar="false" standardStylesheets="false"  >
+<!--
+<apex:includeScript value="{!URLFOR($Resource.Quote, '/one.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.Quote, '/two.js')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.Quote, '/three.css')}"/>
+ -->
+
+
+<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet" />
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+     
+
+
+<!-- Old jS and css 
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" /> -->  
+<!-- Latest compiled and minified JavaScript 
+-->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+ <!-- Latest compiled and minified CSS -->
+   
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"/>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<apex:form id="autoCompleteForm" >
+ 
+<apex:actionfunction name="loading" rerender="counterStatus" />
+<!-- <apex:param id="aname" name="productFamily" value="" />
+</apex:actionfunction>  
+<apex:actionfunction  name="renderpanel" rerender="productcodeselect" />
+-->
+<apex:pageblock >
+<html>
+<head>
+<!-- This css for QuoteLIne Item Table -->
+<style>
+.table-sortable tbody tr {
+    cursor: move;
+}
+
+</style>
+<script type="text/javascript">
+function loadShow(a){
+$(a).parent().find( $('[id$=spinner]')).show();
+      // $('[id$=spinner]').show();
+}
+
+function loadHide(a){
+ $('[id$=spinner]').hide();
+}
+
+function populateListprice(){
+var quantity=0;
+var total=0;
+var tax=0;
+$('[id$=listpricehidden]').each(function(){
+
+$(this).parent().find($('[id$=listprice]')).html($(this).val());
+
+});
+
+$('[id$=unitprice]').each(function(){
+quantity=0;
+if($(this).parent().parent().find($('[id$=quantity]')).val())
+quantity=parseFloat($(this).parent().parent().find($('[id$=quantity]')).val());
+
+if($(this).val()){
+$(this).parent().parent().find($('[id$=total]')).html((parseFloat($(this).val())*quantity).toFixed(2));
+total+=parseFloat($(this).val())*quantity;
+}
+});
+
+$('[id$=xyz]').html(total.toFixed(2));
+    
+if($('[id$=second]').val())
+tax=parseFloat($('[id$=second]').val());
+
+$('[id$=grand]').html((total+total*tax/100).toFixed(2));
+}
+
+</script>
+
+<script>
+function calculation(a){
+var quantity=0;
+var unitprice=0.00;
+var adjustment=0;
+var listprice=0;
+
+if(!isNaN(parseFloat($(a).parent().parent().find($('[id$=quantity]')).val())))
+quantity=parseFloat($(a).parent().parent().find($('[id$=quantity]')).val()).toFixed(2);
+
+if(!isNaN(parseFloat($(a).parent().parent().find($('[id$=listprice]')).html())))
+listprice=parseFloat($(a).parent().parent().find($('[id$=listprice]')).html()).toFixed(2);
+
+
+
+if($(a).parent().parent().find($('[id$=adjustment]')).val().replace("m","").replace("d","").replace("M","").replace("D","")){
+
+if(isNaN(($(a).parent().parent().find($('[id$=adjustment]')).val().replace("m","").replace("d","").replace("M","").replace("D",""))))
+alert("Please Enter a Valid format like M5 or D5 and without any Space");
+else{
+adjustment=parseFloat($(a).parent().parent().find($('[id$=adjustment]')).val().replace("m","-").replace("d","").replace("M","-").replace("D",""));
+
+}
+}
+
+
+$(a).parent().parent().find($('[id$=unitprice]')).val((listprice-(listprice*adjustment/100)).toFixed(2));
+    
+if(!isNaN(parseFloat($(a).parent().parent().find($('[id$=unitprice]')).val())))
+unitprice=parseFloat($(a).parent().parent().find($('[id$=unitprice]')).val()).toFixed(2);
+
+
+
+
+$(a).parent().parent().find($('[id$=total]')).html((unitprice*quantity).toFixed(2));
+
+
+
+     var subtotal=0;
+      var tax=0;                
+                        $('[id$=total]').each(function(){
+                        if(!isNaN(parseFloat($(this).html()))){
+              
+                        subtotal+=parseFloat($(this).html());
+                        }
+                        });
+                      
+                        $('[id$=xyz]').html(subtotal.toFixed(2));
+                        
+                       if($('[id$=second]').val())
+                       tax=  $('[id$=second]').val();
+                      
+                       
+                        $('[id$=grand]').html((subtotal+(subtotal*tax)/100).toFixed(2));
+}
+
+function unitPrice(a){
+var quantity=0;
+var unitprice=0.00;
+
+var listprice=0;
+
+if(!isNaN(parseFloat($(a).val())))
+unitprice=parseFloat($(a).val()).toFixed(2);
+
+if(!isNaN(parseFloat($(a).parent().parent().find($('[id$=quantity]')).val())))
+quantity=parseFloat($(a).parent().parent().find($('[id$=quantity]')).val()).toFixed(2);
+
+if(!isNaN(parseFloat($(a).parent().parent().find($('[id$=listprice]')).html())))
+listprice=parseFloat($(a).parent().parent().find($('[id$=listprice]')).html()).toFixed(2);
+
+if(!$(a).parent().parent().find($('[id$=adjustment]')).val())
+$(a).parent().parent().find($('[id$=adjustment]')).val((100-100*unitprice/listprice).toFixed(0));
+
+$(a).parent().parent().find($('[id$=total]')).html((unitprice*quantity).toFixed(2));
+
+
+
+   var   subtotal=0;
+       var tax=0;                  
+                        $('[id$=total]').each(function(){
+                        if(!isNaN(parseFloat($(this).html()))){
+              
+                        subtotal+=parseFloat($(this).html());
+                        }
+                        });
+                      
+                        $('[id$=xyz]').html(subtotal.toFixed(2));
+                        
+                        if($('[id$=second]').val())
+                        tax=  $('[id$=second]').val();
+                      
+                       
+                        $('[id$=grand]').html((subtotal+(subtotal*tax)/100).toFixed(2));
+
+}
+
+</script>
+ <apex:outputPanel id="script">
+<script>
+  $(function() {
+  
+     var   subtotal=0;
+       var tax=0;                  
+                        $('[id$=total]').each(function(){
+                        if(!isNaN(parseFloat($(this).html()))){
+              
+                        subtotal+=parseFloat($(this).html());
+                        }
+                        });
+                      
+                        $('[id$=xyz]').html(subtotal.toFixed(2));
+                        
+                        if($('[id$=second]').val())
+                        tax=  $('[id$=second]').val();
+                      
+                       
+                        $('[id$=grand]').html((subtotal+(subtotal*tax)/100).toFixed(2));
+  });
+</script>
+</apex:outputPanel>
+</head>
+<body>
+<apex:actionfunction name="status" status="counterStatus" rerender="pqr"/>
+<apex:actionFunction name="Contactid" action="{!contactdeatils}" rerender="contactaccountname" status="counterStatus"/>
+<apex:actionFunction name="Contactid1" action="{!contactdeatils1}" rerender="contactaccountname2" status="counterStatus"/>
+<div class="panel panel-default">
+  <div class="panel-heading">SCMS QUOTE</div>
+  <div class="panel-body">
+<div class="container-fluid">
+
+
+<div class="col-md-12">
+
+<div class="row">
+<div class="col-md-4 norightpadding">
+<div class="col-md-6 norightpadding" style=" padding-top: 10px;">Contact Lookup:</div>
+<div class="col-md-5 noleftpadding" style=" padding-top: 10px;"> 
+<apex:inputtext styleclass="form-control input-md"  html-placeholder="contact Name" id="contactTextBoxId" value="{!searchTerm}" />
+<apex:inputhidden id="searchContactId" value="{!selectedContact}" />
+</div>
+<apex:outputpanel id="contactaccountname">
+<div class="col-md-6 norightpadding" style=" padding-top: 10px;">Customer Lookup:</div>
+<div class="col-md-5 noleftpadding" style=" padding-top: 10px;">
+<apex:inputtext styleclass="form-control input-md" html-placeholder="Customer Name" value="{!mailingaaccount}" />  
+</div>
+<div class="col-md-6 norightpadding text-div" style=" padding-top: 10px;">Billing Address : </div>
+<div class="col-md-6 noleftpadding" style=" padding-top: 10px;" >
+<apex:inputtextArea styleclass="form-control input-md" value="{!mailingaddress}" />
+</div>
+<div class="col-md-6 norightpadding" style=" padding-top: 10px;">Phone Number:</div>
+<div class="col-md-5 noleftpadding" style=" padding-top: 10px;">
+<apex:inputtext styleclass="form-control input-md" html-placeholder="Phone Number:" value="{!mailingphone}"/>
+</div>
+<div class="col-md-6 norightpadding" style=" padding-top: 10px;">Email Address:</div>
+<div class="col-md-5 noleftpadding" style=" padding-top: 10px;">
+<apex:inputtext styleclass="form-control input-md" html-placeholder="Email Adddress:" value="{!mailingemail}" />
+</div>
+</apex:outputpanel>
+</div> 
+<div class="col-md-4 norightpadding">
+<div class="col-md-6 " style=" padding-top: 10px;">Attn To Name</div>
+<div class="col-md-5 noleftpadding" style=" padding-top: 10px;">
+<apex:inputtext styleclass="form-control input-md"  id="contactTextBoxId1" value="{!searchTerm1}" />
+<apex:inputhidden id="searchContactId1" value="{!selectedContact1}" />
+</div>
+<apex:outputpanel id="contactaccountname2">
+<div class="col-md-6 " style=" padding-top: 10px;">Company&nbsp;:&nbsp;&nbsp;&nbsp;</div>
+<div class="col-md-5 noleftpadding" style=" padding-top: 10px;" >
+<apex:inputtext styleclass="form-control input-md" html-placeholder="Company Name" value="{!mailingaaccount1}"/>
+</div>
+<div class="col-md-6 norightpadding text-div" style=" padding-top: 10px;">Shipping Address : </div>
+<div class="col-md-6 noleftpadding" style=" padding-top: 10px;">
+<apex:inputtextArea styleclass="form-control input-md" value="{!mailingaddress1}"/>
+</div>
+<div class="col-md-6 norightpadding" style=" padding-top: 10px;">Phone Number:</div>
+<div class="col-md-5 noleftpadding" style=" padding-top: 10px;">
+<apex:inputtext styleclass="form-control input-md" html-placeholder="Phone Number:" value="{!mailingphone1}"/>
+</div>
+<div class="col-md-6 norightpadding" style=" padding-top: 10px;">Email Address:</div>
+<div class="col-md-5 noleftpadding" style=" padding-top: 10px;">
+<apex:inputtext styleclass="form-control input-md" html-placeholder="Email Adddress:" value="{!mailingemail1}"/>
+</div>
+</apex:outputpanel>
+</div>  
+<div class="col-md-4 norightpadding">
+<div class="col-md-6 norightpadding" style=" padding-top: 10px;">Status</div>
+<div class="col-md-5 noleftpadding" style=" padding-top: 10px;">
+<apex:selectList id="sel2" value="{!SelectedstatusValues}" multiselect="false" style="width:100px" size="1">
+                <apex:selectOptions value="{!options}"  />
+</apex:selectList>
+</div>
+<div class="col-md-6 norightpadding" style=" padding-top: 10px;">Quote #</div> 
+<div class="col-md-5 noleftpadding" style=" padding-top: 10px;">
+<apex:inputtext styleclass="form-control input-md" html-placeholder="Quote #" value="{!Quotepage}"/>
+</div>
+<div class="col-md-6 norightpadding" style=" padding-top: 10px;">PO # </div>
+<div class="col-md-5 noleftpadding" style=" padding-top: 10px;">
+<apex:inputtext styleclass="form-control input-md" html-placeholder="PO #" value="{!Po}" />
+ </div>
+ <div class="col-md-6 norightpadding" style=" padding-top: 10px;">Terms # </div>
+<div class="col-md-5 noleftpadding" style=" padding-top: 10px;">
+<apex:inputtext styleclass="form-control input-md" html-placeholder="Terms #" value="{!Terms}" />
+</div>
+<div class="col-md-6 norightpadding" style=" padding-top: 10px;">Ship Via #</div>
+<div class="col-md-5 noleftpadding" style=" padding-top: 10px;">
+<apex:inputtext styleclass="form-control input-md" html-placeholder="Ship Via #"  value="{!Shipvia}" />
+</div>
+</div>
+</div>
+
+
+<apex:outputPanel >
+							<apex:actionstatus id="counterStatus">
+            <apex:facet name="start">
+                <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb;height: 100%;opacity:0.65;width:100%;"> 
+                    <div class="waitingHolder" style="top: 74.2px; width: 91px;">
+                        <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." />
+                        <span class="waitingDescription">Please Wait...</span>
+                    </div>
+                </div>
+            </apex:facet>
+        </apex:actionstatus>
+        </apex:outputPanel>
+
+
+
+<div class="row">
+
+<div class="col-md-12">
+<div class="modal-body row">
+ 
+  
+ 
+
+  <div class="col-md-12">
+ 
+ 
+         <!-- Your Second column here  -->
+    <div class="container">
+  <div class="col-md-5"></div>  
+       <div class="col-md-7"> 
+        <apex:commandButton value="Products" html-data-toggle="modal" oncomplete="populateListprice();" html-data-target="#myModal"/>&nbsp;
+        <apex:commandButton value="Delete Selected" action="{!deleteSelected}" oncomplete="populateListprice();" rerender="pro,script" status="counterStatus" />&nbsp;
+        <apex:commandButton value="Copy Selected" status="counterStatus" oncomplete="populateListprice();" rerender="pro,script"/>&nbsp;
+        <apex:commandButton value="Paste" status="counterStatus" oncomplete="populateListprice();" rerender="pro,script"/> &nbsp;
+        <apex:commandButton value="Email Quote" status="counterStatus" oncomplete="populateListprice();" rerender="pro,script"/>&nbsp;
+        <apex:commandButton value="Process Quote" status="counterStatus" oncomplete="populateListprice();" rerender="pro,script"/>&nbsp;
+        <apex:commandButton value="Create PO" status="counterStatus" oncomplete="populateListprice();" rerender="pro,script"/>
+        </div>
+     
+         <apex:outputPanel id="pro">
+           <apex:variable value="{!0}" var="i"/>
+    <div class="row" id="tb">
+    
+        <div class="table-responsive col-md-12">
+       
+        <table id="sort2" class="grid table table-bordered table-sortable">
+            <thead>
+                <tr>
+                <th></th>
+               <th>#</th><th>Manufacture</th><th>Product Code</th><th>Description</th><th>Quantity</th>
+                    <th>List Price</th>
+                    <th>Adjustment</th>
+                    <th>Unit Price</th>
+                    <th>Ext. Price</th>
+                    <th></th></tr>
+            </thead>
+            <tbody>
+            <apex:repeat id="rer" value="{!lineItemswraplist}" var="prod" > 
+               <apex:variable value="{!i+1}" var="i" />
+                <tr>
+                    <td><apex:inputCheckbox value="{!prod.b}"/></td>
+                    <td>{!i}</td>
+                    <td><apex:inputtext html-placeholder="Product Family" styleclass="form-control input-md" onfocus="onFocusPopulate(this);" onblur="onBlurPopulate(this);" onkeyup="autoPopulate(this);" id="productTextBoxId" value="{!prod.family}" />
+                    <apex:inputhidden id="searchproductfamily" value="{!prod.family}"/>
+                     <div id="spinner" class="spinner" style="display:none;">
+                       <img id="img-spinner" src="/img/loading.gif" alt="Loading"/>
+                         </div></td>
+                    <td><apex:inputtext html-placeholder="Product code" value="{!prod.code}" onkeyup="autoPopulateCode(this);" onfocus="onFocusPopulate(this);" onblur="onBlurPopulate(this);" styleclass="form-control" id="productcode" />
+                     <apex:inputhidden id="searchproductId" value="{!prod.lineItem.product2id}" />
+                     <div id="spinner" class="spinner" style="display:none;">
+                       <img id="img-spinner" src="/img/loading.gif" alt="Loading"/>
+                         </div></td>
+                     <td><apex:inputtext html-placeholder="Product Description" id="Description" onkeyup="loadHide();" styleclass="form-control" value="{!prod.lineItem.Description}"/></td> 
+                    <td><apex:inputtext style="width:60px" id="quantity" onkeyup="calculation(this);" value="{!prod.lineItem.Quantity}" styleclass="form-control input-md"/></td>
+                    <td>$&nbsp;<apex:outputtext id="listprice" value="{!prod.listprice}" />
+                    <apex:inputHidden id="listpricehidden" value="{!prod.listprice}"  /> 
+                    <apex:inputHidden id="priceBookEntryId" value="{!prod.lineItem.PricebookEntryId}"/>
+                    </td>   
+                    <td align="center" ><apex:inputtext style="width:50px" 	id="adjustment" onkeyup="calculation(this);" styleclass="form-control" value="{!prod.lineitem.Adjustment__c}"/></td>
+                    <td >$&nbsp;<apex:outputtext id="l34istpr34ice22"  />
+                    <apex:inputText id="unitprice" onkeyup="unitPrice(this)" value="{!prod.lineItem.UnitPrice}"  /> 
+                    <apex:inputHidden id="pr34iceBoo34kEn34tryId22" /> 
+                    </td>
+                    <td>$&nbsp;<apex:outputtext id="total" value="{!prod.lineItem.TotalPrice}" /></td>
+                    <td><apex:commandButton value="X" action="{!remove}" oncomplete="populateListprice();" rerender="pro,script" status="counterStatus" >
+                    <apex:param value="{!i}" name="rr" assignTo="{!index}"/>  
+                    </apex:commandButton></td>  
+                </tr>   
+                </apex:repeat>    
+                <tr>
+                <td align="right" colspan="9"><b>Sub Total</b></td>
+                <td>$&nbsp;<apex:outputText id="xyz" value="{!subtotal}"/></td>
+                </tr> 
+                <tr>
+                <td align="right" style="vertical-align:center" colspan="9"> 
+               <apex:outputPanel id="first">
+				<apex:commandButton oncomplete="populateListprice();" value="{!if(showTax,'Tax Applied','Add Tax')}"  action="{!showContent}" style="background:{!if(showTax,'#01B5F1','#C5C8C9')};" status="counterStatus" rerender="first,third" id="toggle-two"/>
+				</apex:outputPanel>
+				
+                &nbsp;&nbsp;&nbsp;<b>Tax</b></td>
+                
+                <td><apex:outputPanel id="third"><apex:inputText onkeyup="populateListprice();" id="second" rendered="{!showTax}"  value="{!tax}" />%</apex:outputPanel></td> 
+                </tr>  
+                <tr>  
+                <td align="right" colspan="9"><b>Total</b></td>
+                <td>$&nbsp;<apex:outputText id="grand" /></td>
+                </tr> 
+            </tbody>
+             
+        </table>
+        </div>    
+    </div>
+     </apex:outputPanel>
+    
+</div>
+ <!-- End Your Second column here  -->  
+
+  </div>
+ 
+  
+
+</div>
+</div>
+</div>
+</div>
+
+</div> 
+
+<apex:commandButton action="{!add}" value="Add Row" oncomplete="populateListprice();" rerender="pro,script" status="counterStatus" />
+
+</div></div>
+
+</body>
+
+</html>
+<apex:pageblockbuttons Location="Bottom">
+<apex:commandbutton value="Create New Quote" action="{!save}" status="counterStatus" />
+</apex:pageblockbuttons>
+</apex:pageblock>
+</apex:form>
+
+  <div class="container">
+ 
+  <!-- Trigger the modal with a button -->
+  
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-md">
+    
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Products</h4>
+        </div>
+        <div class="modal-body">
+  
+  <apex:include pageName="ProductsListModelDivPage"/>
+  
+         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>  
+  
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var PLACEHOLDER = 'Contact'; 
+    var contactObjects;
+    var queryTerm;
+    var contactselect;
+    $('[id$=contactTextBoxId]').autocomplete({
+        minLength: 2,
+       
+        source: function(request, response) {
+                    queryTerm = request.term;
+                  //  alert("execute the first");
+                    contactselect=1;
+                    QuotePageClass.searchContact(request.term, function(result, event)
+                    {
+                        if(event.type == 'exception') 
+                        {
+                              alert(event.message);
+                        } else 
+                        {
+                             contactObjects = result;
+                             response(contactObjects);
+                        }
+                    });
+               },
+                
+        focus: function( event, ui ) {
+                $('[id$=contactTextBoxId]').val( ui.item.Name );
+                return false;
+                },
+        select: function( event, ui ) {
+                    $('[id$=contactTextBoxId]').val( ui.item.Name );
+                    $('[id$=searchContactId]').val( ui.item.Id );
+                     Contactid();
+                    return false;
+                },
+     })
+     .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+        var entry = "<a>" + item.Name;
+       console.log(item);
+        entry = entry + "</a>";
+        entry = entry.replace(queryTerm, "<b>" + queryTerm + "</b>");
+        return $( "<li></li>" )
+            .data( "item.autocomplete", item )
+            .append( entry )
+            .appendTo( ul );
+    };
+        
+    /* Add or remove placeholder values
+    $('[id$=contactTextBoxId]').val(PLACEHOLDER);
+    $('[id$=contactTextBoxId]').on("focus",  function(event)
+    {
+        $tgt = $(event.target);
+        if($tgt.val() === PLACEHOLDER )
+        {
+            $tgt.val('');
+            $tgt.removeClass('placeHolder');
+        }
+        
+      
+    });
+    $('[id$=contactTextBoxId]').on( "blur",  function(event){
+        $tgt = $(event.target);
+        if($tgt.val() === '' ){
+            $tgt.val(PLACEHOLDER);
+            $tgt.addClass('placeHolder');
+        } 
+        if(contactselect==1)
+        {
+           
+           
+            contactselect=0;
+        }
+       
+    });*/
+    
+<!-- Use for second contact -->     
+    $('[id$=contactTextBoxId1]').autocomplete({
+        minLength: 2,
+       
+        source: function(request, response) 
+        {
+                    queryTerm = request.term;
+                 //   alert("execute the second");
+                    contactselect=1;
+                    QuotePageClass.searchContact(request.term, function(result, event)
+                    {
+                        if(event.type == 'exception') 
+                        {
+                              alert(event.message);
+                        } else {
+                             contactObjects = result;
+                             response(contactObjects);
+                        }
+                    });
+               },
+                
+        focus: function( event, ui ) 
+        {
+                $('[id$=contactTextBoxId1]').val( ui.item.Name );
+                return false;
+                },
+        select: function( event, ui ) 
+        {
+                    $('[id$=contactTextBoxId1]').val( ui.item.Name );
+                    $('[id$=searchContactId1]').val( ui.item.Id );
+                    Contactid1();
+                    return false;
+                },
+     })
+     .data( "ui-autocomplete" )._renderItem = function( ul, item ) 
+     {
+        var entry = "<a>" + item.Name;
+       
+        entry = entry + "</a>";
+        entry = entry.replace(queryTerm, "<b>" + queryTerm + "</b>");
+        return $( "<li></li>" )
+            .data( "item.autocomplete", item )
+            .append( entry )
+            .appendTo( ul );
+    };
+        
+    /* Add or remove placeholder values
+    $('[id$=contactTextBoxId1]').val(PLACEHOLDER);
+    $('[id$=contactTextBoxId1]').on("focus",  function(event)
+    {
+        $tgt = $(event.target);
+        if($tgt.val() === PLACEHOLDER ){
+            $tgt.val('');
+            $tgt.removeClass('placeHolder');
+        }
+    });
+    $('[id$=contactTextBoxId1]').on( "blur",  function(event){
+        $tgt = $(event.target);
+        if($tgt.val() === '' ){
+            $tgt.val(PLACEHOLDER);
+            $tgt.addClass('placeHolder');
+        }
+        if(contactselect==1)
+        {
+          
+            
+            contactselect=2;
+        }
+    });*/
+ });
+</script>
+    
+      
+    
+  
+    
+      
+    
+  <script type="text/javascript">
+  
+   var PLACEHOLDER = 'Product Family'; 
+   var family;
+    var contactObjects;
+    var contactObjects2;
+    var queryTerm;
+    var contactselect;
+    var productcode;
+   var queryTerm2;
+  function autoPopulate(a){
+
+loadShow($(a));
+if($(a).val().length<=1){
+ loadHide($(this));
+}
+  $(a).autocomplete({
+  
+        minLength: 2,
+     
+        source: function(request, response) {
+                    queryTerm = request.term;
+                 
+                    contactselect=1;
+                        QuotePageClass.searchProduct(request.term, function(result, event){
+                        if(event.type == 'exception') {
+                              alert(event.message);
+                        } else {
+                        
+                             contactObjects = result;
+                             if(result.length<=0){
+                             alert("There are no Records Matching Your Search");
+                             
+                             }
+                             loadHide($(this));
+                           
+                             response(contactObjects);
+                        }
+                        
+                    });
+                    
+               },
+                
+        focus: function( event, ui ) {
+           
+               $(a).val( ui.item.value );
+                return false;
+                },
+        select: function( event, ui ) {
+            
+                    $(a).val( ui.item.value);
+                     $(a).parent().parent().find($('[id$=searchproductfamily]')).val( ui.item.value );
+              loadHide($(a));
+                    return false;
+                },
+     })     
+     .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+      
+        var entry = "<a>" + item.value;
+        
+        entry = entry + "</a>";
+        entry = entry.replace(queryTerm, "<b>" + queryTerm + "</b>");
+        return $( "<li></li>" )
+            .data( "item.autocomplete", item.value )
+            .append( entry )
+            .appendTo( ul );
+    }
+  }
+  
+  function autoPopulateCode(a){
+var quantity=0;
+var adjustment=0;
+var unitprice=0;
+var subtotal=0;
+var tax=0;
+ loadShow($(a));
+  if($(a).val().length<=1){
+ loadHide($(this));
+}
+  $(a).autocomplete({
+        minLength: 2,
+     
+        source: function(request, response) {
+                    queryTerm2 = request.term;
+                   family= $(a).parent().parent().find($('[id$=searchproductfamily]')).val();
+                    contactselect=1;
+                    
+                    QuotePageClass.productdeatils(request.term,family, function(result, event){
+                        if(event.type == 'exception') {
+                              alert(event.message);
+                        } else {
+                             contactObjects = result;
+                            // alert(result.product2.ProductCode);
+                             if(result.length<=0){
+                             alert("There are no Records Matching Your Search");
+                             
+                             }
+                             loadHide($(this));
+                            console.log(result);
+                           
+                             response(contactObjects);
+                        }
+                    });
+               },
+                
+        focus: function( event, ui ) {
+           
+               $(a).val( ui.item.ProductCode );
+                return false;
+                },
+        select: function( event, ui ) {
+            
+                  $(a).val( ui.item.ProductCode);
+                  $(a).parent().parent().find($('[id$=searchproductId]')).val( ui.item.id );
+                  $(a).parent().parent().find($('[id$=Description]')).val( ui.item.Description );
+                   $(a).parent().parent().find($('[Id$=productTextBoxId]')).val(ui.item.Family);
+                 // loadHide($(a));
+                   QuotePageClass.pricebooklistprice($(a).val(), function(result, eventt){
+                   if(eventt.type == 'exception') {
+                              alert(eventt.message);
+                        } else {
+                             contactObjects2 = result;
+                             //response(contactObjects2);
+                           
+                             
+                           $(a).parent().parent().find($('[id$=listprice]')).html(result.UnitPrice);
+                           $(a).parent().parent().find($('[id$=listpricehidden]')).val(result.UnitPrice);
+                            $(a).parent().parent().find($('[id$=priceBookEntryId]')).val(result.Id);
+                            
+                            
+                           if($(a).parent().parent().find($('[id$=adjustment]')).val().replace("m","").replace("M","").replace("D","").replace("d",""))
+                           adjustment=parseFloat($(a).parent().parent().find($('[id$=adjustment]')).val().replace("m","-").replace("M","-").replace("D","").replace("d",""));
+                           
+                           
+                           if(!isNaN(parseFloat($(a).parent().parent().find($('[id$=quantity]')).val())))
+                           quantity=$(a).parent().parent().find($('[id$=quantity]')).val();
+                            
+                           $(a).parent().parent().find($('[id$=unitprice]')).val((result.UnitPrice-(result.UnitPrice*adjustment/100)).toFixed(2));  
+                         unitprice=$(a).parent().parent().find($('[id$=unitprice]')).val();
+                        $(a).parent().parent().find($('[id$=total]')).html(quantity*unitprice);
+                      
+                        subtotal=0;
+                      
+                        $('[id$=total]').each(function(){
+                        if(!isNaN(parseFloat($(this).html()))){
+              
+                        subtotal+=parseFloat($(this).html());
+                        }
+                        });
+                      
+                        $('[id$=xyz]').html(subtotal.toFixed(2));
+                        
+                        if($('[id$=second]').val()&&$('[Id$=toggle-two]').prop("checked"))
+                        tax=  $('[id$=second]').val();
+                        else{
+                       tax=0;
+                       $('[id$=second]').val(0);
+                       }
+                       
+                        $('[id$=grand]').html((subtotal+(subtotal*tax)/100).toFixed(2));
+                        }
+                     
+                   });
+             return false;
+                },
+     })     
+     .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+       
+        
+        
+        var entry = "<a>" + item.ProductCode;
+        
+        entry = entry + "</a>";
+        entry = entry.replace(queryTerm2, "<b>" + queryTerm2 + "</b>");
+        return $( "<li></li>" )
+            .data( "item.autocomplete", item.ProductCode )
+            .append( entry )
+            .appendTo( ul );
+    }
+  }
+    
+  
+  function onFocusPopulate(a){
+  
+ /*  if($(a).val() === PLACEHOLDER ){
+            $(a).val('');
+            $(a).removeClass('placeHolder');
+        }
+  */
+  }
+  
+  function onBlurPopulate(a){
+  /* if($(a).val() === '' ){
+            $(a).val(PLACEHOLDER);
+            $(a).addClass('placeHolder');
+        }
+        if(contactselect==1)
+        {
+        
+   
+            contactselect=2;
+        }
+  */
+  }
+  
+  /*
+  function productCode(a){
+  console.log("infuction  "+productcode);
+   console.log("infuction  "+parseInt(productcode.length));
+  for(var p=0;p<productcode.length;p++){
+  console.log("infor  "+productcode[p]);
+  
+  }
+  
+  } */
+  </script>
+    
+    <!-- use for product -->
+    
+  <script type="text/javascript">
+   $(document).ready(function(){
+ /* var PLACEHOLDER = 'Product Family'; 
+    
+    // Add or remove placeholder values
+  //  $('[id$=productTextBoxId]').val(PLACEHOLDER);
+ 
+   
+ <!-- This is use for QuoteLine Item Table-->
+ 
+    var fixHelperModified = function(e, tr) {
+        var $originals = tr.children();
+        var $helper = tr.clone();
+    
+        $helper.children().each(function(index) {
+            $(this).width($originals.eq(index).width())
+        });
+        
+        return $helper;
+    };
+  
+    $(".table-sortable tbody").sortable({
+        helper: fixHelperModified      
+    }).disableSelection();
+
+    $(".table-sortable thead").disableSelection();*/
+});  
+   
+</script>
+
+</apex:page>

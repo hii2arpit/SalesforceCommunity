@@ -1,0 +1,28 @@
+<aura:component implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,force:hasRecordId" access="global" controller="AurasetCallback">
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:attribute name="accountcolumns" type="List" />
+    <aura:attribute name="accountData" type="Account[]" />
+    <aura:attribute name="enableInfiniteLoading" type="Boolean" default="true" />
+    <aura:attribute name="initialRows" type="Integer" default="10" />
+    <aura:attribute name="totalRecords" type="Integer" default="10" />
+    <aura:attribute name="totalRows" type="Integer" default="0" />
+    <aura:attribute name="loadMoreOffset" type="Integer" default="1" />
+
+
+    <div class="slds-page-header" role="banner">
+        <span classs="slds-page-header__title">Account List Lazy Loading Datatable</span> 
+    </div>
+
+    <div style="height:250px">
+        <lightning:datatable aura:id="accounttable"
+                             keyField="id"
+                             hideCheckboxColumn="true"
+                             columns="{!v.accountcolumns}"
+                             data="{!v.accountData}"
+                             enableInfiniteLoading="{!v.enableInfiniteLoading}"
+                             loadMoreOffset="{!v.loadMoreOffset}"
+                             onloadmore="{!c.loadMoreData}" />
+    </div>
+</aura:component>

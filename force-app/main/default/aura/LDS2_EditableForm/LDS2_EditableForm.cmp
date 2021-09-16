@@ -1,0 +1,40 @@
+<aura:component implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,flexipage:availableForRecordHome,force:hasRecordId">
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="recordFields" type="Object" />
+    <aura:attribute name="recordError" type="String" />
+
+    <force:recordData aura:id="record" layoutType="COMPACT" recordId="{!v.recordId}" targetError="{!v.recordError}" targetRecord="{!v.record}"
+                     targetFields="{!v.recordFields}" mode="VIEW"/>
+    
+    <force:recordData aura:id="editRecord" layoutType="FULL" recordId="{!v.recordId}" targetError="{!v.recordError}" targetRecord="{!v.record}"
+                     targetFields="{!v.recordFields}" mode="EDIT"  />
+    
+    <lightning:card iconName="standard:contact" title="{!v.recordFields.Name}">
+        <div class="slds-p-horizontal_small">
+            <!-- <p class="slds-text-heading_small">
+                <lightning:formattedText title="LastName" value="{!v.recordFields.lastname}" />
+            </p> -->
+            <p class="slds-text-heading_small">
+                <lightning:formattedText title="Email" value="{!v.recordFields.Email}" />
+            </p>
+        </div>
+    </lightning:card>
+    <br/>
+
+    <lightning:card iconName="action:edit" title="LDS Edit Contact">
+        <div class="slds-p-horizontal_small">
+            <lightning:input label="Name" value="{!v.recordFields.Name}" />
+            <!-- <lightning:input label="Last Name" value="{!v.recordFields.LastName}" /> -->
+            <lightning:input label="Email" value="{!v.recordFields.Email}" />
+            <br/>
+            <lightning:button label="Save Contact" variant="brand" onclick="{!c.saveContact}" />
+            <lightning:button label="Delete Contact" variant="brand" onclick="{!c.deleteContact}" />
+        </div>
+    </lightning:card>
+
+    <aura:if isTrue="{!not(empty(v.recordError))}">
+        <div class="recordError">
+            {!v.recordError}
+        </div>
+    </aura:if>
+</aura:component>

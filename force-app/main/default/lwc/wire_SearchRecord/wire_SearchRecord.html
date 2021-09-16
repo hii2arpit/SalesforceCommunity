@@ -1,0 +1,49 @@
+<template>
+  <lightning-card
+    title="Filter account list based on input value"
+    icon-name="custom:custom33"
+  >
+    <lightning-input
+      type="search"
+      placeholder="Enter Account Name"
+      onchange={keyChange}
+      label="Search Account"
+      value={searchKey}
+    >
+    </lightning-input>
+    <div class="slds-m-around_medium">
+      <template if:true={accounts.data}>
+        <template for:each={accounts.data} for:item="acc">
+          <p key={acc.Id}>{acc.Name}</p>
+        </template>
+      </template>
+    </div>
+  </lightning-card>
+
+  <br /><br />
+
+  <lightning-card
+    title="Get the account list based on input"
+    icon-name="custom:custom33"
+  >
+    <div class="slds-m-around_medium">
+      <lightning-input
+        type="search"
+        placeholder="Enter Account Name"
+        onchange={findAccounts}
+        label="Search Account"
+      >
+      </lightning-input>
+
+      <lightning-datatable
+        key-field="Id"
+        data={listaccounts}
+        columns={columnslist}
+        hide-checkbox-column="true"
+        show-row-number-column="true"
+      >
+      </lightning-datatable>
+      <template if:true={noRecords}> --No Account Records Found-- </template>
+    </div>
+  </lightning-card>
+</template>

@@ -1,0 +1,19 @@
+<apex:page standardController="Position__c" recordSetVar="pos">
+<apex:pageBlock >
+<apex:form > 
+    <apex:pageblock >
+        <apex:pageblockbuttons >
+        <apex:commandButton value="save" action="{!save}"/>
+        </apex:pageblockbuttons>
+        
+        <apex:pageblocktable value="{!pos}" var="p">
+           <apex:column value="{!p.name}"/>
+           <apex:column headerValue="Status">
+           <apex:inputField value="{!p.Status__c}"/>
+           </apex:column>
+        </apex:pageblocktable>
+        
+    </apex:pageblock>
+</apex:form>
+</apex:pageBlock>
+</apex:page>

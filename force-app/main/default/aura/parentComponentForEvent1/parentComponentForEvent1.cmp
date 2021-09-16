@@ -1,0 +1,10 @@
+<aura:component implements="flexiPage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,flexipage:availableForRecordHome">
+    <aura:attribute name="eventMessage" type="String" />
+    <aura:handler name="firstEvent" event="c:ComponentEvent1" action="{!c.parentCompEvnt}" />
+
+    <div class="slsd-m-around_XX-large">
+        <c:ChildComonentForEvent />
+        <p>{!v.eventMessage}</p>
+    </div>
+
+</aura:component>

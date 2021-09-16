@@ -1,0 +1,15 @@
+<apex:page controller="newold" >
+<apex:form >
+    <apex:pageblock >
+    <apex:pagemessages />
+        <apex:pageblockSection columns="3">
+            <apex:inputField value="{!Account.Name}"/>
+            <apex:inputField value="{!Account.Phone}"/>
+            <apex:inputField value="{!Account.Industry}"/>
+        </apex:pageblockSection>
+        <apex:pageblockButtons location="Bottom">
+        <apex:commandButton value="save" action="{!save}"/>
+        </apex:pageblockButtons>
+    </apex:pageblock>
+</apex:form>
+</apex:page>

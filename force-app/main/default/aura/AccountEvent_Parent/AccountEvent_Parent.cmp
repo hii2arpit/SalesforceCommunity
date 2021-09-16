@@ -1,0 +1,19 @@
+<aura:component controller="AurasetCallback" implements="flexiPage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,flexipage:availableForRecordHome">
+    <aura:attribute name="lstAccount" type="List" />
+    <aura:attribute name="columns" type="List" />
+    <aura:attribute name="flag" type="Boolean" default="false" />
+
+    <aura:handler name="searchEvent" event="c:Event2_AccountEvent" action="{!c.displayAccount}" />
+    <c:AccountEvent_Child/>
+
+    <aura:if isTrue="{!v.flag}">
+        <div class="slds-box">
+            <lightning:datatable keyField="tableid"
+                                 data="{!v.lstAccount}"
+                                 columns="{!v.columns}" 
+                                 hideCheckboxColumn="false" 
+                                 hideTableHeader="false" />
+        </div>
+    </aura:if>
+
+</aura:component>

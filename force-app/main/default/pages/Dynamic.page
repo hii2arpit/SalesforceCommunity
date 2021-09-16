@@ -1,0 +1,48 @@
+<apex:page controller="DynamicApex" sidebar="false">
+<apex:form >
+<c:PageBlockTableEnhancerADV targetPbTableIds="pbt"  pageSizeOptions="5,10,15,30" defaultPageSize="15" enableExport="true"/>
+<apex:pageblock mode="maindetail" id="pb">
+    
+    <apex:pageblockButtons location="Top">
+    <apex:commandButton value="Click" action="{!soql}"/>
+     <apex:commandButton value="Save" action="{!save}"/>
+    </apex:pageblockButtons>
+
+    <apex:pageblockSection columns="4">
+   
+    <apex:pageblocksectionItem >
+        <apex:outputLabel value="Object:"/>
+            <apex:selectList value="{!selectedobject}" size="1">
+                <apex:selectOptions value="{!object}"/>
+                    <apex:actionSupport event="onchange" reRender="myfields"/>
+            </apex:selectList>
+      </apex:pageblocksectionItem>
+     
+     <apex:pageblocksectionItem > 
+         <apex:outputLabel value="Fields:"/>
+            <apex:outputPanel id="myfields">
+                <apex:selectList value="{!selectedField}" multiselect="true" size="5">
+                    <apex:selectOptions value="{!fields}"/>
+                </apex:selectList>
+            </apex:outputPanel>
+        </apex:pageblocksectionItem>
+       
+        <apex:outputLabel value="Dynamic Query:"/>
+        <apex:inputtextarea rows="5" cols="50" value="{!temp}" />
+    </apex:pageblockSection>
+    
+    <apex:pageblockTable value="{!q}" var="t" id="pbt" >
+		<apex:repeat value="{!selectedField}" var="sf">		  
+		<apex:column >
+		   	<apex:facet name="header">{!labelmap[sf]}</apex:facet>
+		   	{!t[sf]}
+		   </apex:column>  
+		</apex:repeat>
+    </apex:pageblockTable>
+        
+     <!--  <apex:outputPanel rendered="{!IF(q.size < 1 , true , false)}">
+           		<apex:pageMessage severity="ERROR" summary="No records to display"/>
+           </apex:outputPanel> -->
+</apex:pageblock>
+</apex:form>
+</apex:page>

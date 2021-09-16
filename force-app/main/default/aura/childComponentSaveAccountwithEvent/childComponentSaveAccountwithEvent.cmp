@@ -1,0 +1,20 @@
+<aura:component controller="AurasetCallback">
+    <aura:registerEvent name="first" type="c:ComponentEvent1" />
+    <aura:attribute name="acc" type="Account" default="{'sobjectType':'Account'}" />
+
+
+    <div class="slds-p-top_xxx-small slds-m-top_xx-small">
+        <lightning:card title="Create Account Using Event" iconName="standard:account">
+            <aura:set attribute="actions">
+                <lightning:button label="Save" onclick="{!c.doSave}" />
+                <lightning:button label="Cancel" onclick="{!c.doCancel}" />
+            </aura:set>
+
+            <div class="slds-box">
+                <lightning:input label="Name" value="{!v.acc.Name}" />
+                <lightning:input label="Phone" value="{!v.acc.Phone}" />
+                <lightning:input label="Industry" value="{!v.acc.Industry}" />
+            </div>
+        </lightning:card>
+    </div>
+</aura:component>

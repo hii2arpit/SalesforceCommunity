@@ -1,0 +1,5 @@
+<apex:page controller="linkedin">
+<apex:form >
+    <apex:commandButton value="code" action="{!readCode}" />
+</apex:form>    
+</apex:page>

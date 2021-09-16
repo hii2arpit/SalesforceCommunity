@@ -1,0 +1,6 @@
+<aura:component controller="AurasetCallback">
+    <aura:attribute name="myName" type="String" />
+    <lightning:button label="Invoke" onclick="{!c.doInvoke}" /> <br/> <br/>
+
+    <p style="font-size:40px;color:blue;">{!v.myName}</p>
+</aura:component>

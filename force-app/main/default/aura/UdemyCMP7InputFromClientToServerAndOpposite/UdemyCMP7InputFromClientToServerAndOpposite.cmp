@@ -1,0 +1,22 @@
+<aura:component controller="AurasetCallback">
+    <aura:attribute name="strKey" type="String" />
+    <aura:attribute name="accRecord" type="Account" default="{'aObjectType' : 'Account'}" />
+    <aura:attribute name="flag" type="boolean" default="false" />
+
+    <div style="height: 300px;width: 300px;margin-left:100px;margin-top:50px;">
+        <lightning:input label="Industry" value="{!v.strKey}" /><br/>
+        <lightning:button label="Search" onclick="{!c.doSearch}" />
+    </div>
+
+    <div style="height: 300px; width: 300px; margin-left:100px; margin-top:50px;">
+        <aura:if isTrue="{!v.flag}">
+            <lightning:card title="Customer Details" iconName="standard:Account">
+                <div style="padding:5px;">
+                    <b>Name</b>     :   {!v.accRecord.Name}<br/>
+                    <b>Phone</b>    :   {!v.accRecord.Phone}<br/>
+                    <b>Industry</b> :   {!v.accRecord.Industry}<br/>
+                </div>
+            </lightning:card>
+        </aura:if>
+    </div>
+</aura:component>

@@ -1,0 +1,10 @@
+<!-- <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,flexipage:availableForRecordHome">
+ <lightning:navigation aura:id="navService"/>
+ <lightning:button label="Navigate" onclick="{!c.handleClick}"/>
+</aura:component> -->
+
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,flexipage:availableForRecordHome">
+    <lightning:navigation aura:id="navService"/>
+    <!-- Your content here -->
+    <lightning:button label="Navigate To Page" onclick="{!c.completeOrder}" />
+</aura:component>

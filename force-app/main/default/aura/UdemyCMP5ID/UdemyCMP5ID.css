@@ -1,0 +1,14 @@
+.THIS.box1 
+{
+    margin: 100px;
+    height: 350px;
+    width: 500px;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 10px;
+}
+.THIS .innerDiv
+{
+    padding: 5px;
+
+}

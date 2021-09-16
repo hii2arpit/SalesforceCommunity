@@ -1,0 +1,17 @@
+<aura:component implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,flexipage:availableForRecordHome">
+
+    <aura:attribute name="flag" type="Boolean" default="false" />
+    <aura:attribute name="acc" type="Account[]" />
+    <aura:attribute name="columns" type="List" />
+    <aura:handler name="first" event="c:ComponentEvent1" action="{!c.displayAccount}" />
+    <c:childComponentSaveAccountwithEvent />
+
+    <aura:if isTrue="{!v.flag}">
+        <div class="slds-box">
+            <lightning:datatable keyField="tableid" data="{!v.acc}" columns="{!v.columns}" hideCheckboxColumn="false" hideTableHeader="false" />
+        </div>
+    </aura:if>
+
+
+
+</aura:component>

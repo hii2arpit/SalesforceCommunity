@@ -1,0 +1,17 @@
+<apex:page controller="WrapperController">
+<apex:form >
+    <apex:pageblock >
+    <apex:pageblockButtons >
+    <apex:commandButton value="Delete" action="{!deleteaccount}"/>
+    </apex:pageblockButtons>
+    
+    <apex:pageblocktable value="{!Account}" var="a">
+    <apex:column >
+    <apex:inputCheckbox value="{!a.checkbox}"/>
+    </apex:column>
+    <apex:column value="{!a.act.Name}"/>
+    
+    </apex:pageblocktable> 
+    </apex:pageblock>
+</apex:form>
+</apex:page>

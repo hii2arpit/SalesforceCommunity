@@ -1,0 +1,30 @@
+<apex:Page >
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+ <div style="border:2px border-radius:15px;">
+    <table style="border:3px solid black; border-collapse:collapse;">
+    <tr>
+    <th>Month</th>
+    <th>Gas Price</th>
+    <th>Mileage</th>
+    <th>Variable Rate</th>
+    <th>Variable Amount</th>
+    <th>Fixed Amount</th>
+    <th>Total Reimbursement</th>
+    </tr>
+    
+    <tr>
+    <td>abc</td>
+    <td>abc1</td>
+    <td>abc2</td>
+    <td>abc3</td>
+    <td>abc4</td>
+    <td>abc5</td>
+    <td>abc6</td>
+    </tr>
+    </table>
+    </div>
+ </apex:page>

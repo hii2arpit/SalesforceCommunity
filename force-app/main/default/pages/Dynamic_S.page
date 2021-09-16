@@ -1,0 +1,65 @@
+<apex:page controller="dynamics">
+<apex:form >
+<apex:pageblock Title="Dynamic Query" id="add">
+        <apex:pageblockSection columns="5">
+        
+            <apex:pageblockSectionItem >
+                <apex:outputLabel value="Object Names:">
+                    <apex:actionRegion >
+                        <apex:selectList value="{!selectedObject}" size="1">
+                            <apex:selectOptions value="{!ObjectNames}"/>
+                            <apex:actionsupport event="onchange" rerender="myFields"/>
+                        </apex:selectList>
+                    </apex:actionRegion>
+                </apex:outputLabel>
+            </apex:pageblockSectionItem>
+            
+            <apex:pageblockSectionItem >
+                <apex:outputLabel value="Fields Names:"/>
+                <apex:outputPanel id="myFields">
+            <apex:actionregion >
+                    <apex:selectList value="{!selectedField}" size="5" multiselect="true">
+                    <apex:selectoptions value="{!FieldNames}"/>
+                    </apex:selectList>
+               </apex:actionregion>
+                </apex:outputPanel>
+            </apex:pageblockSectionItem> 
+           
+            <apex:pageblockSectionItem >
+            <apex:outputLabel value="Limit:"/>
+            <apex:inputText value="{!querylimit}"/>
+            </apex:pageblockSectionItem>
+            
+            <apex:pageblockSectionItem >
+            <apex:outputLabel value="Order:"/>
+                <apex:selectList value="{!selectedOrder}" size="1">
+                    <apex:selectOption itemvalue="ascending" ItemLabel="ascending"/>
+                    <apex:selectOption itemvalue="descending" ItemLabel="descending"/>
+                </apex:selectList>
+            </apex:pageblockSectionItem>
+            
+       </apex:pageblockSection>
+   
+        <apex:pageblockSection columns="3" Title="Filters:" >
+            <Apex:commandButton Value="Add Row" rerender="add" action="{!filtervalue}"/>
+                    <apex:outputPanel id="myFields2">
+                    <apex:actionregion >
+                        <apex:selectList value="{!selectedfilterfield}" size="1" multiselect="false">
+                        <apex:selectoptions value="{!FieldNames}"/>
+                        </apex:selectList>
+                    </apex:actionregion>
+                </apex:outputPanel>
+                <apex:selectList value="{!filtertype}" size="1">
+                    <apex:selectOption itemvalue="equal" ItemLabel="="/>
+                    <apex:selectOption itemvalue="notequal" ItemLabel="!="/>
+                    <apex:selectOption itemvalue="contains" ItemLabel="Contains"/>
+                </apex:selectList>  
+    </apex:pageblockSection>
+        <apex:pageblockButtons location="Bottom">
+              <Apex:commandButton Value="GO" action="{!selectclick}"/>
+              <Apex:commandButton Value="Dynamic Query"/>
+        </apex:pageblockButtons>
+</apex:pageBlock>
+      
+</apex:form>
+</apex:page>

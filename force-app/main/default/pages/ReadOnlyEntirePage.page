@@ -1,0 +1,4 @@
+<apex:page controller="SummaryStatsController" readOnly="true">
+<p> Here is Statistis:{!VeryLargeSummry}</p>
+  
+</apex:page>

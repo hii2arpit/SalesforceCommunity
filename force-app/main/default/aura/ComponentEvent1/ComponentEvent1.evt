@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="Event template">
+    <!-- <aura:attribute name="first" type="String" default="This is my first component" /> -->
+    <aura:attribute name="acc" type="Account" />
+</aura:event>

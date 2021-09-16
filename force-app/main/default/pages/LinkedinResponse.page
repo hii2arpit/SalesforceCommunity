@@ -1,0 +1,28 @@
+<apex:page controller="linkedin">
+<!-- Begin Default Content REMOVE THIS -->
+    <br/>
+    <br/>
+    <center>    <h1>Congratulations</h1></center> <br/><br/>
+<apex:form >
+    <center>  
+        <apex:commandButton value="Call Linkedin" action="{!readCode}" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <apex:commandButton value="Get Token" action="{!requestToken}" /><br/><br/>
+    </center>
+    <b>Access Token</b><br/>
+    {!accessToken}<br/><br/>
+    <b>Access Token Expire Time</b><br/>
+    {!expireTime}<br/><br/>
+
+	<center>
+        <apex:commandButton value="Get Info" action="{!fetchLinkedinDetails}" /><br/><br/>
+    </center><br/>
+     <b>First Name:</b>&nbsp;&nbsp; {!FirstName}<br/><br/>
+    <b>Last Name:</b>&nbsp;&nbsp;  {!LastName}<br/><br/>
+    <b>Profile ID:</b>&nbsp;&nbsp;  {!ProfileId}<br/><br/>
+    <b>Profile Picture URL:</b>&nbsp;&nbsp;  {!ProfileURL}<br/><br/>
+    
+    
+</apex:form>  
+
+<!-- End Default Content REMOVE THIS -->
+</apex:page>

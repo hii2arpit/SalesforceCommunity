@@ -281,7 +281,7 @@ export const SKILLS_DATA ={
           "Git",
           "Code Review",
           "JIRA",
-          "Unit Testing"]
+          "Unit Testing"] 
   }
 }
 
